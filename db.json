@@ -1,0 +1,19 @@
+{
+  "list": [
+    {
+      "list": "Senin ",
+      "Activites": "Otodidak",
+      "id": 1
+    },
+    {
+      "newDay": "minggu",
+      "newActivites": "hasil update",
+      "id": 2
+    },
+    {
+      "list": "Rabu",
+      "Activites": "Make HomeWork",
+      "id": 3
+    }
+  ]
+}
