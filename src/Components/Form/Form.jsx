@@ -5,12 +5,12 @@ import Table from '../Table/Table.jsx'
 
 const Form = () => {
     const [data, setData] = useState([]) 
-    const [update, setUpdate] = useState({})
+    const [update, setId] = useState({})
 
     useEffect(() => {
-        const getData = () => {
+      const getData = () => {
             axios.get("http://localhost:3000/list").then((respone) => {
-                console.log(respone.data)
+                // console.log(respone.data)
                 setData(respone.data)
             }).catch((errors) => {
               // console.log(errors)
@@ -19,18 +19,31 @@ const Form = () => {
         getData()
     }, [])
 
-     const { handleSubmit, register, errors } = useForm();
-    const onSubmit = (values, e) => {
-        axios.post("http://localhost:3000/list", values).then((respone) => {
-            // console.log('data masuk', respone.data)
-            setData([...data, respone.data])
-        }).catch((errors) => {
-            // console.log('post error')
+     const { handleSubmit, register, setValue, trigger , errors } = useForm();
+  const onSubmit = (values, e, id) => {
+    console.log(id)
+   
+    if (id) {
+      axios.put(`http://localhost:3000/list/${id}`, values).then((respone) => {
+        console.log('berhasil update')
+      });
+    } else {
+      axios
+        .post("http://localhost:3000/list", values)
+        .then((respone) => {
+          // console.log('data masuk', respone.data)
+          setData([...data, respone.data]);
+        })
+        .catch((errors) => {
+          // console.log('post error')
         });
-        e.target.reset()
-    };
+    }
+       e.target.reset();
+  }
+       
+    ;
     
-    const onRemove = (id) => {
+  const onRemove = (id) => {
         axios.delete(`http://localhost:3000/list/${id}`).then((respone) => {
             const newData = data.filter((item) => {
                 if (item.id === id) return false
@@ -42,19 +55,18 @@ const Form = () => {
         });
     }
 
-    const onUpdate = (id) => {
-        
-        const newDay = prompt('create new day')
-        const newActivites = prompt('create activites')
+  const onUpdate = (id) => {
 
-        // setUpdate(Data)
-        axios.put(`http://localhost:3000/list/${id}`,{newDay,newActivites}).then((respone) => {
-            console.log('berhasil update')
-        }).catch((error) => {
-            console.log(error)
-        });
-            
-    } 
+    // console.log(id)
+  
+    axios.get(`http://localhost:3000/list/${id}`).then((respone) => {
+      // console.log(respone.data)
+      setId(respone.data.id)
+      setValue("list", respone.data.list);
+      setValue("Activites", respone.data.Activites);
+
+    })
+} 
     
 
     return (
@@ -74,7 +86,7 @@ const Form = () => {
             />
             {errors.list && errors.list.message}
             <br />
-            <label htmlFor="list">Activites:</label>
+            <label htmlFor="Activites">Activites:</label>
             <input
               type="text"
               name="Activites"
@@ -92,7 +104,7 @@ const Form = () => {
           </form>
         </div>
         <br />
-            <Table todo={data} key={data.id} remove={onRemove} update={onUpdate}/>
+        <Table todo={data} key={data.id} remove={onRemove} update={onUpdate} />
       </div>
     );
 
