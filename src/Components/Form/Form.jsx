@@ -19,15 +19,14 @@ const Form = () => {
         getData()
     }, [])
 
-     const { handleSubmit, register, setValue, trigger , errors } = useForm();
-  const onSubmit = (values, e, id) => {
-    console.log(id)
-   
-    if (id) {
-      axios.put(`http://localhost:3000/list/${id}`, values).then((respone) => {
+     const { handleSubmit, register, setValue, errors } = useForm();
+  const onSubmit = (values, e) => {
+    // console.log(update)
+   if (update) {
+      axios.put(`http://localhost:3000/list/${update}`, values).then((respone) => {
         console.log('berhasil update')
       });
-    } else {
+    }else {
       axios
         .post("http://localhost:3000/list", values)
         .then((respone) => {
@@ -38,7 +37,7 @@ const Form = () => {
           // console.log('post error')
         });
     }
-       e.target.reset();
+       e.target.reset(); 
   }
        
     ;
