@@ -23,11 +23,10 @@ const Form = () => {
   const onSubmit = (values, e) => {
     // console.log(update)
     if (update) {
-        const getUpdate = () => {
           axios.put(`http://localhost:3000/list/${update}`, values).then((respone) => {
             console.log('berhasil update')
           });
-        }
+        
     }else {
       axios
         .post("http://localhost:3000/list", values)
