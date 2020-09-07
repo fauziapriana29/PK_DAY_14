@@ -14,6 +14,11 @@
       "list": "Jum'at",
       "Activites": "Sholat",
       "id": 4
+    },
+    {
+      "list": "Rabu",
+      "Activites": "Coding",
+      "id": 5
     }
   ]
 }
