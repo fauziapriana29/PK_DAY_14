@@ -16,16 +16,18 @@ const Form = () => {
               // console.log(errors)
             });
         }
-        getData()
+      getData()
     }, [])
 
      const { handleSubmit, register, setValue, errors } = useForm();
   const onSubmit = (values, e) => {
     // console.log(update)
-   if (update) {
-      axios.put(`http://localhost:3000/list/${update}`, values).then((respone) => {
-        console.log('berhasil update')
-      });
+    if (update) {
+        const getUpdate = () => {
+          axios.put(`http://localhost:3000/list/${update}`, values).then((respone) => {
+            console.log('berhasil update')
+          });
+        }
     }else {
       axios
         .post("http://localhost:3000/list", values)
