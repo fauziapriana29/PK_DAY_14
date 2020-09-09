@@ -5,7 +5,7 @@ import Table from '../Table/Table.jsx'
 
 const Form = () => {
     const [data, setData] = useState([]) 
-    const [Id, setId] = useState({})
+    const [Id, setId] = useState(null)
 
     useEffect(() => {
       const getData = () => {
@@ -22,27 +22,34 @@ const Form = () => {
      const { handleSubmit, register, setValue, errors } = useForm();
   const onSubmit = (values, e) => {
     // console.log(Id)
-    if (Id == setId) {
-      console.log('put')
-      // axios.put(`http://localhost:3000/list/${Id}`, values).then((respone) => {
-      //   console.log('berhasil update')
-      // });
+    if (Id) {
+      // console.log('put')
+      axios.put(`http://localhost:3000/list/${Id}`, values).then((respone) => {
+        console.log('berhasil update')
+        const index = data.findIndex((item) => {
+          return item.id == Id
+        })
+        let newArray = [...data]
+        newArray[index] = respone.data
+        setData(newArray)
+        setId(null)
+      });
         
     } else {
       console.log('post')
-      //   axios
-      //     .post("http://localhost:3000/list", values)
-      //     .then((respone) => {
-      //       // console.log('data masuk', respone.data)
-      //       setData([...data, respone.data]);
-      //     })
-      //     .catch((errors) => {
-      //       // console.log('post error')
-      //     });
-      // }
+        axios
+          .post("http://localhost:3000/list", values)
+          .then((respone) => {
+            // console.log('data masuk', respone.data)
+            setData([...data, respone.data]);
+          })
+          .catch((errors) => {
+            // console.log('post error')
+          });
+      }
       e.target.reset();
     }
-  }  
+
     ;
     
   const onRemove = (id) => {
@@ -101,7 +108,7 @@ const Form = () => {
             {errors.list && errors.list.message}
             <br />
             <button type="submit" className="btn btn-success">
-              Submit
+              {Id ? "update" : "Create"}
             </button>
           </form>
         </div>

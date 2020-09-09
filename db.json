@@ -1,24 +1,14 @@
 {
   "list": [
     {
-      "list": "Selasa",
-      "Activites": "Make HomeWork",
-      "id": 1
-    },
-    {
-      "list": "Sabtu",
-      "Activites": "Hasil Update 3",
+      "list": "senin",
+      "Activites": "Hasil update",
       "id": 3
     },
     {
       "list": "Jum'at",
       "Activites": "Sholat",
       "id": 4
-    },
-    {
-      "list": "Rabu",
-      "Activites": "Coding",
-      "id": 5
     }
   ]
 }
