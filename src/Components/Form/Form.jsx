@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useForm } from "react-hook-form";
 import { connect } from 'react-redux'
 import {AddTodos, DeleteTodos, UpdateTodos} from '../../Store/Action/todos'
-import axios from '../../../node_modules/axios/dist/axios.js'
+// import axios from '../../../node_modules/axios/dist/axios.js'
 import Table from '../Table/Table.jsx'
 
 const Form = (props) => {
@@ -28,7 +28,8 @@ const Form = (props) => {
   const onSubmit = (values, e) => {
 
     if (Id) {
-      updateTodos(values);
+      // setData(updateTodos(values));
+      updateTodos(Id, values)
       console.log('update')
       setId(null)
     }
@@ -149,7 +150,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addTodo: (value) => dispatch(AddTodos(value)),
     deleteTodo: (id) => dispatch(DeleteTodos(id)),
-    updateTodos: (values) => dispatch(UpdateTodos(values))
+    updateTodos: (id, values) => dispatch(UpdateTodos(id, values))
    }
 }
 

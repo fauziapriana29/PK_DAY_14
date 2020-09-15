@@ -1,6 +1,6 @@
 import * as actionType from "../Action/actionType"
 const initialState = []
-let countId = 0
+let countId = 1
 
 
 const addTodo = (state, payload) => {
@@ -20,7 +20,29 @@ const deleteItem = (state, payload) => {
 }   
 
 const updateTodos = (state, payload) => {
-    const index = payload.findIndex()
+  // console.log(payload)
+  const Index = state.findIndex((list) => {
+    console.log(list.id)
+    return list.id === payload-1
+  })
+  console.log(payload-1)
+        let newArray = [...state]
+  newArray[Index] = state
+  return[newArray]
+
+  // const newArray = state.filter((item) => {
+  //   if (state.id = payload.id) {
+  //     const index = state.findIndex((item) => {
+  //       return item.id === payload.id
+  //     })
+  //     let newList = [...state]
+  //     newList[index] = state
+  //     return newList
+  //   }
+
+  // })
+  // console.log(index)
+  
 }
 
 const todos = (state = initialState, action) => {
