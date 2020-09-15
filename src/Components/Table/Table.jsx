@@ -5,13 +5,13 @@ const Table = (props) => {
     const { todo , remove, update} = props
     const mapData = todo.map((data, index) => {
         return (
-          <tr key={data.id}>
+          <tr key={index}>
             <th scope="row">{index + 1}</th>
             <td>{data.list}</td>
             <td>{data.Activites}</td>
             <td>
               <button className="btn btn-danger" onClick={() => remove(data.id)}>Delete</button> &nbsp;
-              <button className="btn btn-secondary" onClick={() => update(data.id)}>Edit</button>
+              <button className="btn btn-secondary" onClick={() => update(data)}>Edit</button>
             </td>
           </tr>
         );
