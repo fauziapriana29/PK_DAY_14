@@ -20,29 +20,18 @@ const deleteItem = (state, payload) => {
 }   
 
 const updateTodos = (state, payload) => {
-  // console.log(payload)
-  const Index = state.findIndex((list) => {
-    console.log(list.id)
-    return list.id === payload-1
+  const obj = {
+    Id: payload.Id,
+    list: payload.values.list,
+    Activites: payload.values.Activites
+  }
+  const Index = state.findIndex((item) => {
+    return item.id === obj.Id
   })
-  console.log(payload-1)
-        let newArray = [...state]
-  newArray[Index] = state
-  return[newArray]
-
-  // const newArray = state.filter((item) => {
-  //   if (state.id = payload.id) {
-  //     const index = state.findIndex((item) => {
-  //       return item.id === payload.id
-  //     })
-  //     let newList = [...state]
-  //     newList[index] = state
-  //     return newList
-  //   }
-
-  // })
-  // console.log(index)
-  
+  console.log(Index)
+  let newArray = [...state]
+  newArray[Index] = obj
+  return newArray
 }
 
 const todos = (state = initialState, action) => {

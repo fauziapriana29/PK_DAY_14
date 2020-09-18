@@ -11,7 +11,7 @@ const Table = (props) => {
             <td>{data.Activites}</td>
             <td>
               <button className="btn btn-danger" onClick={() => remove(data.id)}>Delete</button> &nbsp;
-              <button className="btn btn-secondary" onClick={() => update(data)}>Edit</button>
+              <button className="btn btn-secondary" onClick={() => update(data.id)}>Edit</button>
             </td>
           </tr>
         );

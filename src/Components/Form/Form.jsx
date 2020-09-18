@@ -22,14 +22,17 @@ const Form = (props) => {
       //       });
       //   }
       // getData()
-    }, [todos])
+    }, [todos, Id])
 
      const { handleSubmit, register, setValue, errors } = useForm();
   const onSubmit = (values, e) => {
 
-    if (Id) {
-      // setData(updateTodos(values));
-      updateTodos(Id, values)
+    if (Id !== null) {
+      const obj = {
+        Id,
+        values
+      }
+      updateTodos(obj)
       console.log('update')
       setId(null)
     }
@@ -37,33 +40,6 @@ const Form = (props) => {
       addTodo(values)
       console.log('create')
     }
-
-    // console.log(values)
-    // if (Id) {
-    //   // console.log('put')
-    //   axios.put(`http://localhost:3000/list/${Id}`, values).then((respone) => {
-    //     console.log('berhasil update')
-    //     const index = data.findIndex((item) => {
-    //       return item.id === Id
-    //     })
-    //     let newArray = [...data]
-    //     newArray[index] = respone.data
-    //     setData(newArray)
-    //     setId(null)
-    //   });
-        
-    // } else {
-    //   console.log('post')
-    //     axios
-    //       .post("http://localhost:3000/list", values)
-    //       .then((respone) => {
-    //         // console.log('data masuk', respone.data)
-    //         setData([...data, respone.data]);
-    //       })
-    //       .catch((errors) => {
-    //         // console.log('post error')
-    //       });
-    //   }
       e.target.reset();
     }
 
@@ -83,18 +59,19 @@ const Form = (props) => {
         // });
     }
 
-  const onUpdate = (values) => {
-    // console.log(todos);
-    
-console.log(values)
-    // axios.get(`http://localhost:3000/list/${id}`).then((respone) => {
-    // // console.log(respone.data)
-    // //   //
-    setId(values.id)
-    setValue("list", values.list);
-    setValue("Activites", values.Activites);
-
-    // })
+  const onUpdate = (id) => {
+    setId(id)
+    const findItem = data.find((item) => item.id === id)
+    if (findItem) {
+      setValue('list', findItem.list, {
+        shouldValidate: true,
+        shouldDirty: true,
+      })
+      setValue("Activites", findItem.Activites, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    }
   }; 
   
     
@@ -150,7 +127,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addTodo: (value) => dispatch(AddTodos(value)),
     deleteTodo: (id) => dispatch(DeleteTodos(id)),
-    updateTodos: (id, values) => dispatch(UpdateTodos(id, values))
+    updateTodos: (values) => dispatch(UpdateTodos(values))
    }
 }
 
